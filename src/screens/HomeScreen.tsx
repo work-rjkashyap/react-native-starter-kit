@@ -1,46 +1,58 @@
 ﻿import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Button from '@components/Button';
-import { styles, colors, typography } from '@utils/styles';
-import { User } from '@types/index';
 
-const mockUser: User = {
-  id: '1',
-  name: 'John Doe',
-  email: 'john.doe@example.com',
-};
+import ThemeToggler from '@/components/ThemeToggler/ThemeToggler';
+import { useTheme } from '@/context/ThemeProvider';
 
 const HomeScreen: React.FC = () => {
-  const handlePress = () => {
-    console.log('Button pressed');
-  };
+  const theme = useTheme();
+
+  if (!theme) {
+    return null;
+  }
+
+  const { colors, space, font, isDarkMode } = theme;
 
   return (
-    <View style={[styles.container, homeStyles.container]}>
-      <Text style={homeStyles.title}>Welcome, {mockUser.name}</Text>
-      <Text style={homeStyles.subtitle}>{mockUser.email}</Text>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: colors.bg,
+          padding: space.lg,
+        },
+      ]}
+    >
+      <Text style={[font.h2, { color: colors.text }]}>Dark Mode</Text>
 
-      <View style={styles.shadow}>
-        <Button title="Get Started" onPress={handlePress} />
+      <View style={[styles.section, { marginTop: space.lg }]}>
+        <Text style={[font.body, { color: colors.text }]}>Dark Mode</Text>
+
+        <ThemeToggler size={60} style={{ marginTop: space.md }} />
+
+        <Text
+          style={[
+            font.caption,
+            {
+              color: colors.textLight,
+              marginTop: space.sm,
+            },
+          ]}
+        >
+          {isDarkMode ? 'Enabled' : 'Disabled'}
+        </Text>
       </View>
     </View>
   );
 };
 
-const homeStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.light,
+    flex: 1,
   },
-  title: {
-    fontSize: typography.fontSizeXLarge,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: colors.dark,
-  },
-  subtitle: {
-    fontSize: typography.fontSizeNormal,
-    color: colors.secondary,
-    marginBottom: 24,
+  section: {
+    borderRadius: 8,
+    alignItems: 'flex-start',
   },
 });
 
