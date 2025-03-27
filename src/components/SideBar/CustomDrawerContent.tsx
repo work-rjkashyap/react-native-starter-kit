@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Linking} from 'react-native';
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerContentComponentProps,
   DrawerItem,
 } from '@react-navigation/drawer';
-import { useTheme } from '@/context/ThemeProvider';
-import { HugeiconsIcon } from '@hugeicons/react-native';
-import { Home09Icon, Logout01Icon } from '@hugeicons/core-free-icons';
-import { font } from '@/theme/tokens';
+import {useTheme} from '@/context/ThemeProvider';
+import {HugeiconsIcon} from '@hugeicons/react-native';
+import {Home09Icon, Logout01Icon} from '@hugeicons/core-free-icons';
+import {font} from '@/theme/tokens';
 
-const ModernDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
+const ModernDrawerContent: React.FC<DrawerContentComponentProps> = props => {
   const theme = useTheme();
   if (!theme) {
     return null;
   }
 
-  const { colors, font } = theme;
+  const {colors, font} = theme;
   const [activeSection, setActiveSection] = useState('Home');
 
   // Navigation helper function
@@ -34,7 +34,7 @@ const ModernDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
     },
     {
       label: 'Settings',
-      icon: '📊',
+      icon: Home09Icon,
       screen: 'Settings',
     },
   ];
@@ -47,21 +47,19 @@ const ModernDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
 
         backgroundColor: colors.bg,
       }}
-      scrollEnabled={false}
-    >
-      <View style={[styles.container, { backgroundColor: colors.bg }]}>
+      scrollEnabled={false}>
+      <View style={[styles.container, {backgroundColor: colors.bg}]}>
         {/* Navigation Items */}
         <View style={styles.navigationContainer}>
           {/* Custom Navigation Items */}
-          {menuItem.map((item) => (
+          {menuItem.map(item => (
             <TouchableOpacity
               key={item.label}
               style={[
                 styles.navItem,
-                activeSection === item.screen && { backgroundColor: `${colors.primary}20` }, // 20% opacity
+                activeSection === item.screen && {backgroundColor: `${colors.primary}20`}, // 20% opacity
               ]}
-              onPress={() => navigateToScreen(item.screen)}
-            >
+              onPress={() => navigateToScreen(item.screen)}>
               <View
                 style={[
                   styles.navIconContainer,
@@ -69,16 +67,9 @@ const ModernDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
                     backgroundColor:
                       activeSection === item.screen ? colors.primary : colors.surface,
                   },
-                ]}
-              >
-                <Text
-                  style={{ color: activeSection === item.screen ? colors.primary : colors.text }}
-                >
-                  {item.screen === 'Home' ? (
-                    <HugeiconsIcon icon={`${item.icon}`} size={20} color={colors.surface} />
-                  ) : (
-                    '📊'
-                  )}
+                ]}>
+                <Text style={{color: activeSection === item.screen ? colors.primary : colors.text}}>
+                  '📊'
                 </Text>
               </View>
               <Text
@@ -90,12 +81,11 @@ const ModernDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
 
                     fontFamily: font.bold,
                   },
-                ]}
-              >
+                ]}>
                 {item.label}
               </Text>
               {activeSection === item.screen && (
-                <View style={[styles.activeIndicator, { backgroundColor: colors.primary }]} />
+                <View style={[styles.activeIndicator, {backgroundColor: colors.primary}]} />
               )}
             </TouchableOpacity>
           ))}
@@ -116,17 +106,15 @@ const ModernDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
             style={[styles.logoutButton]}
             onPress={() => {
               /* Handle logout */
-            }}
-          >
+            }}>
             <View
               style={[
                 styles.navIconContainer,
-                { backgroundColor: `${colors.error}20`, borderRadius: 30 },
-              ]}
-            >
+                {backgroundColor: `${colors.error}20`, borderRadius: 30},
+              ]}>
               <HugeiconsIcon icon={Logout01Icon} size={20} color={colors.error} />
             </View>
-            <Text style={[styles.logoutText, { color: colors.error, ...font.body }]}>Logout</Text>
+            <Text style={[styles.logoutText, {color: colors.error, ...font.body}]}>Logout</Text>
           </TouchableOpacity>
         </View>
       </View>
