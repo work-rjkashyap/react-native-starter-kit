@@ -7,10 +7,12 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Menu05Icon } from '@hugeicons/core-free-icons';
+import ComponentsScreen from '@/screens/Components';
 
 // Define Drawer Param List
 type DrawerParamList = {
   Home: undefined;
+  Components: undefined;
 };
 
 // Create Drawer Navigator
@@ -61,6 +63,8 @@ const DrawerNavigation: React.FC = () => {
       })}
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
+      {/* Add more screens here */}
+      <Drawer.Screen name="Components" component={ComponentsScreen} />
     </Drawer.Navigator>
   );
 };

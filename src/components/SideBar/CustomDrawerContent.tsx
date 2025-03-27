@@ -31,13 +31,11 @@ const ModernDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
       label: 'Home',
       icon: Home09Icon,
       screen: 'Home',
-      onPress: () => navigateToScreen('Home'),
     },
     {
       label: 'Settings',
       icon: '📊',
       screen: 'Settings',
-      onPress: () => navigateToScreen,
     },
   ];
 
@@ -55,24 +53,29 @@ const ModernDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
         {/* Navigation Items */}
         <View style={styles.navigationContainer}>
           {/* Custom Navigation Items */}
-          {['Home'].map((item) => (
+          {menuItem.map((item) => (
             <TouchableOpacity
-              key={item}
+              key={item.label}
               style={[
                 styles.navItem,
-                activeSection === item && { backgroundColor: `${colors.primary}20` }, // 20% opacity
+                activeSection === item.screen && { backgroundColor: `${colors.primary}20` }, // 20% opacity
               ]}
-              onPress={() => navigateToScreen(item)}
+              onPress={() => navigateToScreen(item.screen)}
             >
               <View
                 style={[
                   styles.navIconContainer,
-                  { backgroundColor: activeSection === item ? colors.primary : colors.surface },
+                  {
+                    backgroundColor:
+                      activeSection === item.screen ? colors.primary : colors.surface,
+                  },
                 ]}
               >
-                <Text style={{ color: activeSection === item ? colors.primary : colors.text }}>
-                  {item === 'Home' ? (
-                    <HugeiconsIcon icon={Home09Icon} size={20} color={colors.surface} />
+                <Text
+                  style={{ color: activeSection === item.screen ? colors.primary : colors.text }}
+                >
+                  {item.screen === 'Home' ? (
+                    <HugeiconsIcon icon={`${item.icon}`} size={20} color={colors.surface} />
                   ) : (
                     '📊'
                   )}
@@ -82,16 +85,16 @@ const ModernDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
                 style={[
                   styles.navText,
                   {
-                    color: activeSection === item ? colors.primary : colors.text,
+                    color: activeSection === item.screen ? colors.primary : colors.text,
                     ...font.body,
 
                     fontFamily: font.bold,
                   },
                 ]}
               >
-                {item}
+                {item.label}
               </Text>
-              {activeSection === item && (
+              {activeSection === item.screen && (
                 <View style={[styles.activeIndicator, { backgroundColor: colors.primary }]} />
               )}
             </TouchableOpacity>
